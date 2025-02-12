@@ -9,8 +9,7 @@ import (
 )
 
 var (
-	Letters = []rune("abcdefghijklmnopqrstuvwxyz")
-	Emoji   = []rune("🐜🐻🐱🐶🦅🦊🐐🦔🏝🐆🦘🦁🐵🦡🦉🐼👑🦝🐍🦃🦄🦇🐺🎸🦌🦓")
+	Emoji = []rune("🐜🐻🐱🐶🦅🦊🐐🦔🏝🐆🦘🦁🐵🦡🦉🐼👑🦝🐍🦃🦄🦇🐺🎸🦌🦓")
 )
 
 func ReadInput() (text string) {
@@ -23,19 +22,10 @@ func ReadInput() (text string) {
 func Encode(input string) string {
 	output := bytes.NewBuffer(make([]byte, len(input)))
 	for _, c := range input {
-		var found bool
-		for i, l := range Letters {
-			if l == c {
-				i++
-				if i > len(Letters) {
-					i = 0
-				}
-				output.WriteRune(Emoji[i])
-				found = true
-				break
-			}
-		}
-		if !found {
+		if 'a' <= c && c <= 'z' {
+			i := int(c - 'a')
+			output.WriteRune(Emoji[(i+1)%len(Emoji)])
+		} else {
 			output.WriteRune(c)
 		}
 	}
