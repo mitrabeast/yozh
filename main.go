@@ -20,8 +20,7 @@ func ReadInput() (text string) {
 	return strings.ToLower(text)
 }
 
-func main() {
-	input := ReadInput()
+func Encode(input string) string {
 	output := bytes.NewBuffer(make([]byte, len(input)))
 	for _, c := range input {
 		var found bool
@@ -40,5 +39,11 @@ func main() {
 			output.WriteRune(c)
 		}
 	}
-	fmt.Println(output.String())
+	return output.String()
+}
+
+func main() {
+	input := ReadInput()
+	output := Encode(input)
+	fmt.Println(output)
 }
